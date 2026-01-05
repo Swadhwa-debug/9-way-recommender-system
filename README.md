@@ -30,7 +30,7 @@ streamlit run recommender_app.py
 
 · International/Streamlit Cloud: https://9-way-recommender-system.streamlit.app/
 
-· China/ModelScope: https://modelscope.ai/studios/SargamWadhwa/course-recommender-system
+· China/ModelScope: https://modelscope.ai/studios/SargamWadhwa/9-way-recommender-system/
 
 · Local Run: streamlit run recommender_app.py
 
