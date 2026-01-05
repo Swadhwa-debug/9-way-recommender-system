@@ -291,7 +291,7 @@ def get_user_cluster_df():
     return pd.DataFrame({"user": USER_PROFILE_DF["user"], "cluster": labels})
 
 models = ("Course Similarity",
-          "User Profile",
+         
           "Clustering",
           "Clustering with PCA",
           "KNN",
