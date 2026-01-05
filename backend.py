@@ -442,7 +442,7 @@ import numpy as np
 
 def user_profile_recommendations(user_id, sim_threshold=0.0, top_courses=None):
     # Load data
-    course_vectors = load_course_vectors()
+    course_vectors = load_courses()
     idx_id_dict, id_idx_dict = get_doc_dicts()
     ratings = load_ratings()
     user_ratings = ratings[ratings['user'] == user_id]
