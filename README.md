@@ -11,6 +11,7 @@
 
 ## ✨ Live Demos | 全球访问
 · **International (Streamlit Cloud):** https://9-way-recommender-system.streamlit.app/
+
 · **China (ModelScope 魔搭社区):** https://modelscope.ai/studios/SargamWadhwa/9-way-recommender-system/
 
 ## 📸 Application Interface
