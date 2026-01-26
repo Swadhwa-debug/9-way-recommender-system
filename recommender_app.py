@@ -247,20 +247,10 @@ if model_selection == backend.models[0]:
     course_sim_threshold = st.sidebar.slider('Course Similarity Threshold %', min_value=0, max_value=100, value=50, step=10)
     params = {'top_courses': top_courses, 'sim_threshold': course_sim_threshold}
 
-# User profile model
-elif model_selection == backend.models[1]:
-    profile_score_threshold = st.sidebar.slider(
-        'User Profile Score Threshold',
-        min_value=0, max_value=50, value=10, step=1
-    )
-    top_courses = st.sidebar.slider(
-        'Number of Recommendations',
-        min_value=1, max_value=50, value=10, step=1
-    )
-    params = {'sim_threshold': profile_score_threshold, 'top_courses': top_courses}
+
 
 # Clustering model
-elif model_selection == backend.models[2]:
+elif model_selection == backend.models[1]:
        cluster_no = st.sidebar.slider('Number of Clusters', min_value=2, max_value=50, value=20, step=1)
        top_courses = st.sidebar.slider('Courses per Cluster', min_value=1, max_value=10, value=3, step=1)
        params = {'cluster_num': cluster_no, 'top_courses': top_courses}
@@ -268,7 +258,7 @@ elif model_selection == backend.models[2]:
         
 # Clustering with PCA
 # Clustering with PCA
-elif model_selection == backend.models[3]:
+elif model_selection == backend.models[2]:
     st.sidebar.subheader("PCA + KMeans Parameters")
     n_components = st.sidebar.slider(
         "PCA Components",
@@ -302,13 +292,13 @@ elif model_selection == backend.models[3]:
 
 
 # KNN model
-elif model_selection == backend.models[4]:
+elif model_selection == backend.models[3]:
     n_neighbors = st.sidebar.slider("Neighbors (k)", 1, 50, 15, key="n_neighbors")
     top_k = st.sidebar.slider("Top-K recs/user", 1, 20, 5, key="top_k")
     params = {"n_neighbors": n_neighbors, "top_k": top_k}
 
 # NMF model
-#elif model_selection == backend.models[5]:
+#elif model_selection == backend.models[4]:
  #   st.sidebar.subheader("NMF Parameters")
   #  n_factors = st.sidebar.slider("Latent Factors", 10, 100, 32, step=1)
    # n_epochs = st.sidebar.slider("Training Epochs", 10, 100, 50, step=5)
@@ -316,19 +306,19 @@ elif model_selection == backend.models[4]:
     #params = {"n_factors": n_factors, "n_epochs": n_epochs, "top_k": top_k}
 
 # Neural Network model
-elif model_selection == backend.models[5]:
+elif model_selection == backend.models[4]:
     st.sidebar.subheader("Neural Network Parameters")
     embedding_size = st.sidebar.slider("Embedding Size", 8, 64, 16, step=8)
     epochs = st.sidebar.slider("Training Epochs", 5, 50, 10, step=5)
     top_k = st.sidebar.slider("Top-K Recommendations", 1, 20, 5, step=1)
     params = {"embedding_size": embedding_size, "epochs": epochs, "top_k": top_k}
 
-elif model_selection == backend.models[6]:  # Regression with Embeddings
+elif model_selection == backend.models[5]:  # Regression with Embeddings
     top_k = st.sidebar.slider("Top-K Recommendations", 1, 20, 5, step=1)
     params = {"top_k": top_k}
 
 
-elif model_selection == backend.models[7]:  # Classification with Embeddings
+elif model_selection == backend.models[6]:  # Classification with Embeddings
     top_k = st.sidebar.slider("Top-K Recommendations", 1, 20, 5, step=1)
     params = {"top_k": top_k}
 
