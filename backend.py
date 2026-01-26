@@ -982,19 +982,8 @@ def predict(model_name, user_ids, params):
                 titles.append(title_map.get(course_id, "Unknown Course"))
                 scores.append(score)            
     
+      
         elif model_name == models[1]:
-            user_profile_threshold = params.get("sim_threshold", 50) / 100.0
-            top_courses_param = params.get("top_courses", 10)
-            print(f"🔍 DEBUG PREDICT: Calling user_profile_recommendations with threshold={user_profile_threshold}, top_courses={top_courses_param}")
-            res = user_profile_recommendations(user_id, user_profile_threshold, top_courses_param)
-            print(f"🔍 DEBUG PREDICT: user_profile_recommendations returned {len(res)} items")
-    
-            for course_id, score in res.items():
-                users.append(user_id)
-                courses.append(course_id)
-                titles.append(title_map.get(course_id, "Unknown Course"))
-                scores.append(score)
-        elif model_name == models[2]:
             user_id = user_ids[0]
             top_courses = params.get("top_courses", 10)
             pop_threshold = params.get("pop_threshold", 10)
@@ -1010,7 +999,7 @@ def predict(model_name, user_ids, params):
 
 
  
-        elif model_name == models[3]:
+        elif model_name == models[2]:
             n_comp = params["n_components"]
             n_clust = params["n_clusters"]
             pop_threshold = params["pop_threshold"]
@@ -1021,7 +1010,7 @@ def predict(model_name, user_ids, params):
                     courses.append(cid)
                     titles.append(get_title_map().get(cid, "Unknown Course"))
                     scores.append(None)
-        elif model_name == models[4]:
+        elif model_name == models[3]:
             n_neighbors = params["n_neighbors"]
             top_k = params["top_k"]
             print(f"🔔 KNN predict called at {time.time()}")
@@ -1034,7 +1023,7 @@ def predict(model_name, user_ids, params):
                         titles.append(get_title_map().get(cid, "Unknown Course"))
                         scores.append(score_dict[uid][i])
         
-        elif model_name == models[5]:
+        elif model_name == models[4]:
             # Neural Network
             embedding_size = params.get("embedding_size", 16)
             epochs = params.get("epochs", 10)
@@ -1057,7 +1046,7 @@ def predict(model_name, user_ids, params):
                         scores.append(score)
                 except Exception as e:
                     logger.error(f"Error generating NN recommendations for user {user_id}: {str(e)}")
-        elif model_name == models[6]:
+        elif model_name == models[5]:
             top_k = params.get("top_k", 10)
             for user_id in user_ids:
                 try:
@@ -1071,7 +1060,7 @@ def predict(model_name, user_ids, params):
                 except Exception as e:
                       logger.error(f"Regression embedding error for user {user_id}: {str(e)}")
     
-        elif model_name == models[7]:  # Classification with Embedding Features
+        elif model_name == models[6]:  # Classification with Embedding Features
             top_k = params.get("top_k", 10)
             for user_id in user_ids:
                 try:
