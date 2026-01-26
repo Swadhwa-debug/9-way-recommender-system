@@ -341,35 +341,9 @@ if model_selection == backend.models[0]:
             else:
                 st.subheader("📚 Recommended Courses")
                 st.dataframe(df)
+
+
 elif model_selection == backend.models[1]:
-    if st.sidebar.button("🔎 Test User Profile"):
-        ids = selected_courses_df["COURSE_ID"].tolist()
-        if not ids:
-            st.warning("Select at least one course first.")
-        else:
-            user_id = backend.add_new_ratings(ids)
-            threshold = params.get("sim_threshold", 10)   # <-- updated threshold
-            top_k = params.get("top_courses", 10)
-            df = backend.predict("User Profile", [user_id], {"sim_threshold": threshold, "top_courses": top_k})
-
-            # 🔍 Debugging lines (remove these once you’re confident)
-            # st.write("Debug: Raw DataFrame shape:", df.shape)
-            # st.write("Debug: First few rows:", df.head())
-            # st.write("Debug: Score column unique values:", df['SCORE'].unique() if 'SCORE' in df.columns else "No SCORE column")
-
-            if df.empty:
-                st.error("No recommendations—maybe lower the score threshold.")
-            else:
-                st.subheader("📚 Your User-Profile Recommendations")
-                # ✅ Replace SCORE column name and format nicely
-                if 'SCORE' in df.columns:
-                    df = df.rename(columns={"SCORE": "Match Score"})
-                    st.dataframe(df.style.format({"Match Score": "{:.2f}"}))
-                    st.caption("ℹ️ Match Score indicates how strongly this course aligns with your interests.")
-                else:
-                    st.dataframe(df)
-
-elif model_selection == backend.models[2]:
     if st.sidebar.button("🔎 Test Clustering"):
         ids = selected_courses_df["COURSE_ID"].tolist()
         if not ids:
@@ -393,7 +367,7 @@ elif model_selection == backend.models[2]:
                 st.caption("ℹ️ Ranked by popularity in your cluster, then closeness to the cluster centroid.")
 
 
-elif model_selection == backend.models[3]:
+elif model_selection == backend.models[2]:
   
    
 
@@ -559,7 +533,7 @@ elif model_selection == backend.models[3]:
                     st.write(f"  - PC{i+1}: {variance:.1%}")
                 st.write(f"**Total Variance Explained:** {sum(explained_variance):.1%}")
             
-elif model_selection == backend.models[4]:
+elif model_selection == backend.models[3]:
     # Button to request KNN execution
     if st.sidebar.button("▶️ Recommend with Item-KNN", key="run_knn_btn"):
         st.session_state.knn_state['run_requested'] = True
@@ -611,7 +585,7 @@ elif model_selection == backend.models[4]:
                 #st.subheader("📚 NMF Recommendations")
                 #st.dataframe(df)
 
-elif model_selection == backend.models[5]:
+elif model_selection == backend.models[4]:
     if st.sidebar.button("▶️ Train & Recommend (Neural Network)", key="run_nn_btn"):
         if not st.session_state.get('test_user_id'):
             st.warning("Please create a test user first!")
@@ -643,7 +617,7 @@ elif model_selection == backend.models[5]:
                 st.markdown("1. Select at least 3 courses before creating test user")
                 st.markdown("2. Click 'Add Ratings for New User' before training")
                 st.markdown("3. Try with fewer training epochs (5-10)")
-elif model_selection == backend.models[6]:  # Regression with Embeddings
+elif model_selection == backend.models[5]:  # Regression with Embeddings
     if st.sidebar.button("▶️ Recommend (Regression Embeddings)", key="run_reg_emb"):
         if not st.session_state.get('test_user_id'):
             st.warning("Please create a test user first!")
@@ -660,7 +634,7 @@ elif model_selection == backend.models[6]:  # Regression with Embeddings
 
 
 # Classification with Embeddings prediction
-elif model_selection == backend.models[7]:  # Classification with Embeddings
+elif model_selection == backend.models[6]:  # Classification with Embeddings
     if st.sidebar.button("▶️ Recommend (Classification Embeddings)", key="run_cls_emb"):
         if not st.session_state.get('test_user_id'):
             st.warning("Please create a test user first!")
