@@ -28,4 +28,4 @@ jobs:
         context: .
         push: true
         tags: |
-          ghcr.io/swmlearner/9-way-recommender-system:latest
+          ghcr.io/swadhwa-debug/9-way-recommender-system:latest
