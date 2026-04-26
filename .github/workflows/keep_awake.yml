@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Ping Streamlit App
         # Replace the URL below with the actual link to your 9-Way Recommender
-        run: curl -sL "https://your-recommender-app.streamlit.app" > /dev/null
+        run: curl -sL "https://9-way-recommender-system.streamlit.app/" > /dev/null
