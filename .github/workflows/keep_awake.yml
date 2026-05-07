@@ -2,14 +2,45 @@ name: Keep Streamlit Awake
 
 on:
   schedule:
-    
-    - cron: '0 */6 * * *' # Runs every 6 hours 
+    - cron: '0 */6 * * *' # Runs every 6 hours
   workflow_dispatch: # This allows you to click a button to test it manually
 
 jobs:
-  ping:
+  ping-app:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Streamlit App
-        # Replace the URL below with the actual link to your 9-Way Recommender
-        run: curl -sL "https://9-way-recommender-system.streamlit.app/" > /dev/null
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install playwright
+          npx playwright install --with-deps chromium
+
+      - name: Ping Streamlit App with Headless Browser
+        run: |
+          node -e "
+          const { chromium } = require('playwright');
+          (async () => {
+            console.log('Launching browser...');
+            const browser = await chromium.launch();
+            const page = await browser.newPage();
+            try {
+              console.log('Navigating to Streamlit app...');
+              // Go to the app and wait for the network to idle (ensures JS loads and bypasses the redirect loop)
+              await page.goto('https://9-way-recommender-system.streamlit.app/', { 
+                waitUntil: 'networkidle', 
+                timeout: 45000 
+              });
+              console.log('Page loaded successfully! App is awake.');
+            } catch (error) {
+              console.error('Error loading page:', error);
+              process.exit(1);
+            } finally {
+              await browser.close();
+            }
+          })();
+          "
