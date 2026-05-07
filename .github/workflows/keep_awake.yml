@@ -2,8 +2,8 @@ name: Keep Streamlit Awake
 
 on:
   schedule:
-    # Runs at 00:00 UTC every 2 days
-    - cron: "0 0 */2 * *" 
+    
+    - cron: '0 */6 * * *' # Runs every 6 hours 
   workflow_dispatch: # This allows you to click a button to test it manually
 
 jobs:
